@@ -92,7 +92,7 @@ export function editContact() {
       const contactId = event.currentTarget.dataset.contactId;
       const groupId = event.currentTarget.dataset.groupId;
       const store = getStore();
-      let contact = store
+      const contact = store
         .find((group) => group.id === groupId)
         .contacts.find((contact) => contact.id === contactId);
       showContactModal();

@@ -1,5 +1,3 @@
-import "./elements";
-import "./store";
-import "./contacts";
-import "./modals";
-import "./groups";
+import {getStore} from "./store";
+import {render} from "./render";
+render(getStore());

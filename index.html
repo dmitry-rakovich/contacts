@@ -10,60 +10,58 @@
 </head>
 
 <body>
-  <div id="app">
-    <header class="header">
-      <div class="header__container">
-        <a href="#" class="logo">
-          <img src="./assets/icons/logo.svg" alt="">
-          <span>Книга контактов</span>
-        </a>
-        <div class="buttons">
-          <button id="show-contact-modal" class="button-red">
-            <span>
-              Добавить контакт
-            </span>
-            <img src="./assets/icons/plus.svg" alt="">
-          </button>
-          <button id="show-group-modal" class="button-blue">Группы</button>
+  <header class="header">
+    <div class="header__container">
+      <a href="#" class="logo">
+        <img src="./assets/icons/logo.svg" alt="">
+        <span>Книга контактов</span>
+      </a>
+      <div class="buttons">
+        <button id="show-contact-modal" class="button-red">
+          <span>
+            Добавить контакт
+          </span>
+          <img src="./assets/icons/plus.svg" alt="">
+        </button>
+        <button id="show-group-modal" class="button-blue">Группы</button>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="main__container">
+    </div>
+  </main>
+  <div>
+    <div id="group-modal" class="group-modal">
+      <div class="menu">
+        <div class="menu__header">
+          <span>Группы контактов</span>
+          <button class="close-button" id="close-group-modal"><img src="./assets/icons/close.svg" alt=""></button>
         </div>
-      </div>
-    </header>
-    <main class="main">
-      <div class="main__container">
-      </div>
-    </main>
-    <div>
-      <div id="group-modal" class="group-modal">
-        <div class="menu">
-          <div class="menu__header">
-            <span>Группы контактов</span>
-            <button class="close-button" id="close-group-modal"><img src="./assets/icons/close.svg" alt=""></button>
+        <div class="menu__content">
+          <div class="groups">
           </div>
-          <div class="menu__content">
-            <div class="groups">
-            </div>
-            <div class="buttons">
-              <button id="add-group" class="button-transparent add-group-button">Добавить</button>
-              <button id="save-group" class="button-blue save-button">Сохранить</button>
-            </div>
+          <div class="buttons">
+            <button id="add-group" class="button-transparent add-group-button">Добавить</button>
+            <button id="save-group" class="button-blue save-button">Сохранить</button>
           </div>
         </div>
       </div>
-      <div id="contact-modal" class="contact-modal">
-        <div class="menu">
-          <div class="menu__header">
-            <span>Добавление контакта</span>
-            <button class="close-button" id="close-contact-modal"><img src="./assets/icons/close.svg" alt=""></button>
-          </div>
-          <form id="contact-form" class="menu__content">
-            <fieldset>
-              <input id="full-name" type="text" placeholder="Введите ФИО">
-              <input id="phone" type="tel" placeholder="Введите номер">
-              <select id="group"></select>
-            </fieldset>
-            <button type="button" id="save-contact" class="button-blue save-button">Сохранить</button>
-          </form>
+    </div>
+    <div id="contact-modal" class="contact-modal">
+      <div class="menu">
+        <div class="menu__header">
+          <span>Добавление контакта</span>
+          <button class="close-button" id="close-contact-modal"><img src="./assets/icons/close.svg" alt=""></button>
         </div>
+        <form id="contact-form" class="menu__content">
+          <fieldset>
+            <input id="full-name" type="text" placeholder="Введите ФИО">
+            <input id="phone" type="tel" placeholder="Введите номер">
+            <select id="group"></select>
+          </fieldset>
+          <button type="button" id="save-contact" class="button-blue save-button">Сохранить</button>
+        </form>
       </div>
     </div>
     <script type="module" src="./scripts/main.js"></script>
