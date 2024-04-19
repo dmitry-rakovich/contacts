@@ -1,0 +1,110 @@
+:root {
+    font-family: Arial, sans-serif;
+
+    --color-blue-main: #005BFE;
+    --color-blue-hover: #0047C6;
+    --color-red-main: #F81155;
+    --color-red-hover: #D1003E;
+    --icon-red-hover: #EA3D2F;
+    --color-transparent-hover: #CED8E7;
+    --color-white: #FFFFFF;
+    --body-bg-color: #F6F7F9;
+    --button-border-color: #CECECE;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: var(--body-bg-color);
+}
+
+[class*=__container] {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+[class^="button"] {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#app {
+    width: 100%;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    width: 100%;
+    background-color: var(--color-white);
+    box-shadow: 0px 4px 20px 0px #0000000D;
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        padding-block: 24px;
+
+        @media screen and (max-width: 480px) {
+            flex-wrap: wrap;
+            height: auto;
+            padding-block: 10px;
+            justify-content: center;
+            gap: 10px;
+
+            .buttons {
+                justify-content: center;
+                flex: 1 1 100%;
+
+                button {
+                    width: max-content;
+                }
+            }
+        }
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--color-blue-main);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.6px;
+}
+
+.no-contacts {
+    font-size: 18px;
+    line-height: 18px;
+    color: #ACADAE;
+}
