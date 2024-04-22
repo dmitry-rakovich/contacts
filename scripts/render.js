@@ -1,26 +1,25 @@
 import {getStore} from "./store";
 import {removeContact, editContact} from "./contacts";
-import {removeGroup} from "./groups";
-import {groups, groupSelect, mainContainer} from "./elements";
+import {groupSelect, groupsModal, groupsMain, buttonAddGroup} from "./elements";
 
 render(getStore());
 
 export function render(store) {
-  mainContainer.innerHTML = renderGroups(store);
+  groupsMain.innerHTML = renderGroups(store);
   removeContact();
   editContact();
 }
 
-function renderGroups(store) {
+export function renderGroups(store) {
   if (store.length < 1) {
     return `<div class="no-contacts">Список контактов пуст</div>`;
   } else {
-    return `<div class="groups">${store
+    return `${store
       .map((groups) => {
         return `
-      <details class="groups__item">
+      <details class="groups__item" data-group-id="${groups.id}">
         <summary>
-          <p>${groups.title}</p>
+          <p id="group-title">${groups.title}</p>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g opacity="0.5" clip-path="url(#clip0_1894_90)">
           <path d="M16.885 8.29504L12.295 12.875L7.70498 8.29504L6.29498 9.70504L12.295 15.705L18.295 9.70504L16.885 8.29504Z" fill="black"/>
@@ -39,7 +38,7 @@ function renderGroups(store) {
       </details>
       `;
       })
-      .join("")}</div>`;
+      .join("")}`;
   }
 }
 
@@ -97,7 +96,7 @@ export function renderGroupsSelect() {
 
 export function renderGroupsModal() {
   const store = getStore();
-  groups.innerHTML = store
+  groupsModal.innerHTML = store
     .map((group) => {
       return `
         <div class="item">
@@ -120,5 +119,4 @@ export function renderGroupsModal() {
       `;
     })
     .join("");
-  removeGroup();
 }

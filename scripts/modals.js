@@ -7,8 +7,11 @@ import {
   groupModal,
   contactModal,
   contactForm,
-  groups,
+  groupsModal,
+  buttonAddGroup,
+  buttonSaveGroup,
 } from "./elements";
+import {addGroup, checkGroups} from "./groups";
 
 buttonShowContactModal.addEventListener("click", showContactModal);
 
@@ -28,11 +31,20 @@ groupModal.addEventListener("click", (event) => {
   if (event.target === groupModal) {
     closeGroupModal();
   }
+  if (event.target === buttonAddGroup) {
+    addGroup();
+  }
+  if (event.target === buttonSaveGroup) {
+    checkGroups();
+  }
+  if (event.target.classList.contains("remove-group")) {
+    event.target.parentElement.remove();
+  }
 });
 
 export function closeGroupModal() {
   groupModal.classList.remove("active");
-  groups.innerHTML = "";
+  groupsModal.innerHTML = "";
 }
 function showGroupModal() {
   renderGroupsModal();

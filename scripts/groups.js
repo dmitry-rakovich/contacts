@@ -1,15 +1,13 @@
 import {render} from "./render";
 import {closeGroupModal} from "./modals";
 import {getStore, setStore} from "./store";
-import {buttonAddGroup, buttonSaveGroup, groups} from "./elements";
+import {groupsModal, groupsMain} from "./elements";
 
-buttonAddGroup.addEventListener("click", addGroup);
-
-buttonSaveGroup.addEventListener("click", saveGroup);
-
-function addGroup() {
+export function addGroup() {
   const id = window.crypto.randomUUID();
-  groups.innerHTML += `
+  groupsModal.insertAdjacentHTML(
+    "beforeend",
+    `
     <div class="item">
         <input type="text" value="" data-group-id="${id}"/>
         <button class="remove-button remove-group" data-group-id="${window.crypto.randomUUID()}" >
@@ -26,48 +24,75 @@ function addGroup() {
             </defs>
             </svg>
         </button>
-    </div>`;
+    </div>`
+  );
   setValue(id);
-  removeGroup();
 
-  groups.querySelector(`input[data-group-id='${id}']`).focus();
+  groupsModal.querySelector(`input[data-group-id='${id}']`).focus();
 }
 
-function saveGroup() {
-  groups.querySelectorAll(".item input").forEach((item) => {
-    if (!item.value.trim()) {
-      item.parentElement.remove();
+export function checkGroups() {
+  const allGroups = [...groupsModal.querySelectorAll(".item input")];
+  const group = allGroups.find((item) => !item.value.trim());
+  if (group) {
+    group.focus();
+    return;
+  } else {
+    saveGroups();
+  }
+}
+
+function saveGroups() {
+  const store = getStore();
+  const newStore = [];
+  groupsModal.querySelectorAll(".item input").forEach((item) => {
+    const group = store.find((group) => group.id === item.dataset.groupId);
+    if (group) {
+      group.title = item.value;
+      updateGroup(item.dataset.groupId, item.value);
+      newStore.push({
+        id: item.dataset.groupId,
+        title: item.value,
+        contacts: group.contacts,
+      });
     } else {
-      const store = getStore();
-      const group = store.find((group) => group.id === item.dataset.groupId);
-      if (group) {
-        group.title = item.value;
-      } else {
-        store.push({
-          id: item.dataset.groupId,
-          title: item.dataset.value,
-          contacts: [],
-        });
-      }
-      setStore(store);
-      render(store);
+      newStore.push({
+        id: item.dataset.groupId,
+        title: item.value,
+        contacts: [],
+      });
+      renderGroup(item.dataset.groupId, item.value);
     }
-    closeGroupModal();
   });
+  setStore(newStore);
+  render(newStore);
+  closeGroupModal();
 }
 
-export function removeGroup() {
-  document.querySelectorAll(".remove-group").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const groupId = event.currentTarget.dataset.groupId;
-      event.currentTarget.parentElement.remove();
-      const store = getStore();
-      const newStore = store.filter((item) => item.id !== groupId);
-      localStorage.setItem("contacts-app-store", JSON.stringify(newStore));
-      closeGroupModal();
-      render(newStore);
-    });
-  });
+function renderGroup(id, title) {
+  groupsMain.innerHTML += `
+  <details class="groups__item" data-group-id="${id}">
+        <summary>
+          <p id="group-title">${title}</p>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.5" clip-path="url(#clip0_1894_90)">
+          <path d="M16.885 8.29504L12.295 12.875L7.70498 8.29504L6.29498 9.70504L12.295 15.705L18.295 9.70504L16.885 8.29504Z" fill="black"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_1894_90">
+          <rect width="24" height="24" fill="white"/>
+          </clipPath>
+          </defs>
+          </svg>
+        </summary>
+        <div class="contacts"></div>
+      </details>
+  `;
+}
+
+function updateGroup(id, title) {
+  const group = document.querySelector(`details[data-group-id="${id}"]`);
+  group.querySelector("p#group-title").textContent = title;
 }
 
 function setValue(id) {
